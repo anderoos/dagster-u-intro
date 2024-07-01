@@ -1,0 +1,10 @@
+# Data assets
+*.parquet
+*.csv
+*.duckdb
+
+# Mac Assets
+*.DS_Store
+
+# Dagster Assets
+tmp*
