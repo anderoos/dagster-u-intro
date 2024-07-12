@@ -1,5 +1,5 @@
 from dagster import asset, AssetExecutionContext
-from datetime import datetime
+# from datetime import datetime
 
 import plotly.express as px
 import plotly.io as pio
@@ -7,11 +7,12 @@ import geopandas as gpd
 import pandas as pd
 
 from dagster_duckdb import DuckDBResource
-import duckdb
-import os
+# import duckdb
+# import os
 
 from . import constants
 from ..partitions import weekly_partition
+
 
 @asset(
     deps=["taxi_trips", "taxi_zones"]
@@ -46,16 +47,16 @@ def manhattan_map() -> None:
     trips_by_zone = gpd.read_file(constants.MANHATTAN_STATS_FILE_PATH)
 
     fig = px.choropleth_mapbox(trips_by_zone,
-        geojson=trips_by_zone.geometry.__geo_interface__,
-        locations=trips_by_zone.index,
-        color='num_trips',
-        color_continuous_scale='Plasma',
-        mapbox_style='carto-positron',
-        center={'lat': 40.758, 'lon': -73.985},
-        zoom=11,
-        opacity=0.7,
-        labels={'num_trips': 'Number of Trips'}
-    )
+                               geojson=trips_by_zone.geometry.__geo_interface__,
+                               locations=trips_by_zone.index,
+                               color='num_trips',
+                               color_continuous_scale='Plasma',
+                               mapbox_style='carto-positron',
+                               center={'lat': 40.758, 'lon': -73.985},
+                               zoom=11,
+                               opacity=0.7,
+                               labels={'num_trips': 'Number of Trips'}
+                               )
 
     pio.write_image(fig, constants.MANHATTAN_MAP_FILE_PATH)
 
